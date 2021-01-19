@@ -112,3 +112,7 @@ kbd,
 samp {
   font-family:  "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace" ;
 }
+
+.auth-off .auth-on {
+  visibility: hidden;
+}
