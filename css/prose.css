@@ -1,0 +1,164 @@
+
+.prose{
+    color:#4a5568;
+    max-width:65ch
+  }
+  
+  .prose a{
+    color:#1a202c;
+    text-decoration:underline
+  }
+  
+  .prose ul>li{
+    position:relative;
+    padding-left:1.75em
+  }
+  
+  .prose ul>li::before{
+    content:"";
+    position:absolute;
+    background-color:#cbd5e0;
+    border-radius:50%;
+    width:.375em;
+    height:.375em;
+    top:calc(.875em - .1875em);
+    left:.25em
+  }
+  
+  .prose h2{
+    color:#1a202c;
+    font-weight:700;
+    font-size:1.5em;
+    margin-top:2em;
+    margin-bottom:1em;
+    line-height:1.3333333
+  }
+  
+  .prose{
+    font-size:1rem;
+    line-height:1.75
+  }
+  
+  .prose p{
+    margin-top:1.25em;
+    margin-bottom:1.25em
+  }
+  
+  .prose img{
+    margin-top:2em;
+    margin-bottom:2em
+  }
+  
+  .prose ul{
+    margin-top:1.25em;
+    margin-bottom:1.25em
+  }
+  
+  .prose li{
+    margin-top:.5em;
+    margin-bottom:.5em
+  }
+  
+  .prose>ul>li p{
+    margin-top:.75em;
+    margin-bottom:.75em
+  }
+  
+  .prose>ul>li>:first-child{
+    margin-top:1.25em
+  }
+  
+  .prose>ul>li>:last-child{
+    margin-bottom:1.25em
+  }
+  
+  .prose ul ul{
+    margin-top:.75em;
+    margin-bottom:.75em
+  }
+  
+  .prose h2+*{
+    margin-top:0
+  }
+  
+  .prose>:first-child{
+    margin-top:0
+  }
+  
+  .prose>:last-child{
+    margin-bottom:0
+  }
+  
+  .prose-xl{
+    font-size:1.25rem;
+    line-height:1.8
+  }
+  
+  .prose-xl p{
+    margin-top:1.2em;
+    margin-bottom:1.2em
+  }
+  
+  .prose-xl h2{
+    font-size:1.8em;
+    margin-top:1.5555556em;
+    margin-bottom:.8888889em;
+    line-height:1.1111111
+  }
+  
+  .prose-xl img{
+    margin-top:2em;
+    margin-bottom:2em
+  }
+  
+  .prose-xl ul{
+    margin-top:1.2em;
+    margin-bottom:1.2em
+  }
+  
+  .prose-xl li{
+    margin-top:.6em;
+    margin-bottom:.6em
+  }
+  
+  .prose-xl ul>li{
+    padding-left:1.8em
+  }
+  
+  .prose-xl ul>li::before{
+    width:.35em;
+    height:.35em;
+    top:calc(.9em - .175em);
+    left:.25em
+  }
+  
+  .prose-xl>ul>li p{
+    margin-top:.8em;
+    margin-bottom:.8em
+  }
+  
+  .prose-xl>ul>li>:first-child{
+    margin-top:1.2em
+  }
+  
+  .prose-xl>ul>li>:last-child{
+    margin-bottom:1.2em
+  }
+  
+  .prose-xl ul ul{
+    margin-top:.8em;
+    margin-bottom:.8em
+  }
+  
+  .prose-xl h2+*{
+    margin-top:0
+  }
+  
+  .prose-xl>:first-child{
+    margin-top:0
+  }
+  
+  .prose-xl>:last-child{
+    margin-bottom:0
+  }
+  
