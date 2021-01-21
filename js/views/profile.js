@@ -5,7 +5,6 @@ export default class extends AbstractView {
     constructor(params) {
         super(params);
         this.setTitle('Perfil');
-        this.addStyles("./css/profile.css");
         
       }
 

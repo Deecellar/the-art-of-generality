@@ -93,7 +93,7 @@ function removeAuthBehind()
 
   }
   for(let el of document.getElementsByClassName(selector[selector.length - index - 1])){
-    el.style = "visibility: visible;"
+    el.classList.replace(selector[selector.length - index - 1], selector[selector.length - index - 1]+"-visible")
 
   }
 

@@ -5,7 +5,7 @@ export default class extends AbstractView {
     constructor(params) {
         super(params);
         this.setTitle('Ingrese');
-        this.addStyles("./css/login.css");
+        this.addStyles("./css/auth.css");
         
       }
 

@@ -5,7 +5,6 @@ export default class extends AbstractView {
     constructor(params) {
         super(params);
         this.setTitle('Sobre la pagina');
-        this.addStyles("./css/about.css");
         
       }
 
