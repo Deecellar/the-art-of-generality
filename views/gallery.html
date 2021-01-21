@@ -1,66 +1,132 @@
-<div id="gallery"></div>
-<div>
-  <label for="image-upload">Subir imagen</label>
-  <input type="file" accept="image/*" name="image-upload" id="image-upload" />
-  <label for="author">Autor</label>
-  <input type="text" name="author" id="author" />
-</div>
-<button id="submit">Enviar</button>
+    <!-- Modal Lightbox -->
+    <div id="modal" class="modal-container">
+      <div  class="modal-light">
+        <button id="close-button" class="modal-close" onclick="() => document.getElementById('modal').classList.toggle('hidden')">
+          <svg    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </button>
+  
+  
+        <div class="none ">
+          <img id="lightbox-image" class="modal-content" id="modal">
+        </div>
+      </div>
+    </div>
+    <!-- Upload Image -->
+    <div
+    class="upload-image"
+    id="sticky-control"
+  >
+    <div class="upload-image-container">
+      <label class="upload-image-container-text" for="image-upload">Subir imagen</label>
+      <div class="upload-image-icon">
+        <label class="upload-image-icon-color">
+            <svg id="cloud-icon" class="upload-image-icon-size" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="hidden upload-image-icon-size" fill="currentColor">
+              <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span class="upload-image-text-decorator">Selecciona un archivo</span>
+            <input type="file" accept="image/*" name="image-upload" id="image-upload" class="hidden" />
+          </label>
+    </div>
+      <div class="upload-image-autor-container">
+        <label class="upload-image-autor-label" for="author">Autor</label>
+        <input class="upload-image-autor-input" type="text" name="author" id="author" />
+      </div>
+      <button class="upload-image-submit" id="submit">
+        Enviar
+      </button>
+    </div>
+  </div>
+    
+    <!-- Gallery -->
+  
+  <div
+    id="gallery"
+    class="gallery-wrapper"
+  ></div>
+
 <script>
   if (!window.indexedDB) {
     window.alert(
       "Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas"
     );
   }
-
+  window.addEventListener("scroll", (event) => {
+    if (window.scrollY > 70) {
+      document.getElementById("sticky-control").classList.add("md:opacity-40");
+    } else {
+      document.getElementById("sticky-control").classList.remove("md:opacity-40");
+    }
+    console.log(event.target.p);
+  });
   function GetLocalStorageFiles() {
-
     var request = indexedDB.open("files", 3);
-      request.addEventListener("error", () =>
-        alert("Hubo un error con IndexedDB")
-      );
-      request.addEventListener("blocked", () =>
-        alert("La aplicacion funcionara de manera limitada sin indexedDB")
-      );
-      request.addEventListener("success", (event) => {
-        let db = request.result;
-        var files = db.transaction(["files"],"readonly");
-        let localStorageFiles = files.objectStore("files").getAll();
-        localStorageFiles.addEventListener("success",(event) => {
-            if (localStorageFiles !== null) {
-                let index = 2;
-                let gal = document.getElementById("gallery");
-        gal.innerHTML = "";
+    request.addEventListener("error", () =>
+      alert("Hubo un error con IndexedDB")
+    );
+    request.addEventListener("blocked", () =>
+      alert("La aplicacion funcionara de manera limitada sin indexedDB")
+    );
+    request.addEventListener("success", (event) => {
+      let db = request.result;
+      var files = db.transaction(["files"], "readonly");
+      let localStorageFiles = files.objectStore("files").getAll();
+      localStorageFiles.addEventListener("success", (event) => {
+        if (localStorageFiles !== null) {
+          let index = 2;
+          let gal = document.getElementById("gallery");
+          gal.innerHTML = "";
 
-      localStorageFiles.result.forEach((element) => {
-        let div = document.createElement("div");
-        div.id = element.base64.substring(22+index++,31+index++);
-        let img = document.createElement("img");
-        img.src = element.base64;
-        let p = document.createElement("p");
-        p.textContent = element.author;
-        div.appendChild(img);
-        div.appendChild(p);
-        gal.appendChild(div);
+          localStorageFiles.result.forEach((element) => {
+            let div = document.createElement("div");
+            div.className =
+              "gallery-image-wrapper" ;
+            div.id = element.base64.substring(22 + index++, 31 + index++);
+
+            let img = document.createElement("img");
+            img.src = element.base64;
+            let p = document.createElement("p");
+            p.textContent = element.author;
+            img.className =
+              "gallery-image";
+            img.addEventListener("click",() => {
+              document.getElementById("lightbox-image").src = element.base64;
+              document.getElementById("modal").classList.toggle("hidden");
+            } );
+            div.appendChild(img);
+            div.appendChild(p);
+            if (!isAuthenticated()) {
+              let editButton = document.createElement("button");
+              editButton.textContent = "Edit Image";
+              editButton.className =
+                " gallery-edit-button ";
+              div.appendChild(editButton);
+            }
+            gal.appendChild(div);
+          });
+        }
+        localStorageFiles.addEventListener("error", () =>
+          alert("Ha ocurrido un error de lectura")
+        );
       });
-    }
-      localStorageFiles.addEventListener("error",() => alert("Ha ocurrido un error de lectura"));
-        });
 
-        files.addEventListener("abort", () => alert("Se aborto la lectura"));
-        files.addEventListener("error", () => alert("Hubo un error al leer los archivos"));
-        files.addEventListener("complete", () => console.log("Se han leido todos los archivos"));
-    }
-
-
+      files.addEventListener("abort", () => alert("Se aborto la lectura"));
+      files.addEventListener("error", () =>
+        alert("Hubo un error al leer los archivos")
       );
-      request.addEventListener("upgradeneeded", (event) => {
-        var db = event.target.result;
-        var objStore = db.createObjectStore("files", { autoIncrement: true });
-        objStore.createIndex("author", "author", { unique: false });
-      });
-
-
+      files.addEventListener("complete", () =>
+        console.log("Se han leido todos los archivos")
+      );
+    });
+    request.addEventListener("upgradeneeded", (event) => {
+      var db = event.target.result;
+      var objStore = db.createObjectStore("files", { autoIncrement: true });
+      objStore.createIndex("author", "author", { unique: false });
+    });
   }
   GetLocalStorageFiles();
 
@@ -82,12 +148,16 @@
       );
       request.addEventListener("success", (event) => {
         let db = request.result;
-        var files = db.transaction(["files"],"readwrite");
+        var files = db.transaction(["files"], "readwrite");
         files.objectStore("files").add(imageObj);
 
         files.addEventListener("abort", () => alert("Se aborto la subida"));
-        files.addEventListener("error", () => alert("Hubo un error al subir el archivo"));
-        files.addEventListener("complete", () => console.log("Se ha subido un archivo"));
+        files.addEventListener("error", () =>
+          alert("Hubo un error al subir el archivo")
+        );
+        files.addEventListener("complete", () =>
+          console.log("Se ha subido un archivo")
+        );
 
         GetLocalStorageFiles();
       });
@@ -109,23 +179,44 @@
     return false;
   }
 
-  
-  if(localStorage.getItem("loadedGallery") !== "yes")
-  {
+  if (localStorage.getItem("loadedGallery") !== "yes") {
     let getFiles = fetch("./assets/gallery/files.json")
-    .then((x) => x.json())
-    .then(function (x) {
-      Object.keys(x).forEach((element) => {
-        let src = `./assets/gallery/${element}.jpg`;
-        fetch(src).then(y => y.blob()).then(y => AddImage(y,x[element].user_name) ).then(() => localStorage.setItem("loadedGallery","yes")).catch((e) => {
-            console.error(e);
-            localStorage.removeItem("loadedGallery")
-        })
-      });
-    }).catch(w => console.log(w));
+      .then((x) => x.json())
+      .then(function (x) {
+        Object.keys(x).forEach((element) => {
+          let src = `./assets/gallery/${element}.jpg`;
+          fetch(src)
+            .then((y) => y.blob())
+            .then((y) => AddImage(y, x[element].user_name))
+            .then(() => localStorage.setItem("loadedGallery", "yes"))
+            .catch((e) => {
+              console.error(e);
+              localStorage.removeItem("loadedGallery");
+            });
+        });
+      })
+      .catch((w) => console.log(w));
   }
 
+  document
+    .getElementById("submit")
+    .addEventListener("click", () =>
+      AddImage(
+        document.getElementById("image-upload").files[0],
+        document.getElementById("author").value
+      )
+    );
+    document.getElementById("image-upload").addEventListener("change", () => {
+      if(!document.getElementById("cloud-icon").classList.contains("hidden"))
+      {
+        document.getElementById("cloud-icon").classList.add("hidden");
 
+        if(document.getElementById("check-icon").classList.contains("hidden"))
+      {
+        document.getElementById("check-icon").classList.remove("hidden");
 
-  document.getElementById("submit").addEventListener("click", () => AddImage(document.getElementById("image-upload").files[0], document.getElementById("author").value));
+      }
+      }
+    });
+    document.getElementById("modal").addEventListener("click",() => document.getElementById("modal").classList.toggle("hidden"));
 </script>
