@@ -71,9 +71,10 @@ window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
-    if (e.target.matches("[data-link]")) {
+    if (e.target.matches("a") || e.target.matches(".nav-link") || e.target.matches("img")) {
       e.preventDefault();
-      navigateTo(u(e.target.href));
+      navigateTo(e.target.href);
+      console.log(e.target.href)
     }
   });
 
