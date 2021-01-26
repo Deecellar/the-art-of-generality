@@ -10,7 +10,7 @@ export default class extends AbstractView {
       }
 
       async getHtml() {
-          return await fetch(u("./views/reset-password.html"))
+          return await fetch(u("/views/reset-password.html"))
           .then((response ) => response.text() )
       }
 } 

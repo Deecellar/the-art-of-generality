@@ -9,7 +9,7 @@ export default class extends AbstractView {
       }
 
       async getHtml() {
-          return await fetch(u("./views/about.html"))
+          return await fetch(u("/views/about.html"))
           .then((response ) => response.text() )
       }
 } 
