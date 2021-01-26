@@ -7,7 +7,7 @@ import profile from "./views/profile.js";
 import register from "./views/register.js";
 import resetPassword from "./views/reset.password.js";
 import isAuthenticated from "./authBehaviour.js";
-
+import Validation from "./validation.js";
 removeAuthBehind();
 
 const pathToRegex = (path) =>
