@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
     if (e.target.matches("[data-link]")) {
       e.preventDefault();
-      navigateTo(e.target.href);
+      navigateTo(u(e.target.href));
     }
   });
 
@@ -98,3 +98,16 @@ function removeAuthBehind()
   }
 
 }
+
+
+
+
+// Nav Behaviour
+let hamburger = document.getElementById('hamburgerbtn');
+
+let mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', function(){
+    mobileMenu.classList.toggle("active");
+    console.log("owo");
+});
