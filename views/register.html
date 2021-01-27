@@ -12,9 +12,9 @@
                     <input  class="auth-input" type="email" name="mail" id="mail">
                     <label class="auth-label" for="password">Contraseña</label>
                     <input  class="auth-input"type="password" name="password" id="password">
-                    <label class="auth-label" for="confirmpassword">Confirmar tu contraseña</label>
-                    <input class="auth-input" type="password" name="confirmpassword" id="confirmpassword">
-                    <button class="auth-submit">Registrarse</button>
+                    <label class="auth-label" for="confirmPassword">Confirmar tu contraseña</label>
+                    <input class="auth-input" type="password" name="confirmPassword" id="confirmPassword">
+                    <button class="auth-submit" id="submit">Registrarse</button>
                 <a class="auth-other-links" href="/login">¿Ya estas registrado, Haz login aqui?</a>
                 </div>
             </div>
@@ -22,3 +22,50 @@
     </div>
 
 </div>
+<script>
+            let states = ["auth-state","auth-fail","auth-ok","auth-medium"]
+        let username = document.getElementById("username");
+        let mail = document.getElementById("mail");
+        let password = document.getElementById("password");
+        let confirmPassword = document.getElementById("confirmPassword");
+        let submit = document.getElementById("submit");
+        let validation = new Validation();
+        let usernameTimeout, passwordTimeout, confirmPasswordTimeout, mailTimeout;
+        [[password, passwordTimeout, validation.passwordStrengthValidation, [password.value, password,states[1],states[2],states[3]]],[confirmPassword, confirmPasswordTimeout, () => {if(password.value === confirmPassword.value)confirmPassword.classList.add()}],[username, usernameTimeout],[mail, mailTimeout, validation.emailValidation, [mail.value, mail,states[1]] ] ].forEach(element => 
+        {
+            username.addEventListener("change", () => {
+            intervalChange(states, validation,element[1],element[0],element[3],element[4]);
+
+        });
+        });
+        
+        submit.addEventListener("click",(e) => {
+            
+            let userStorage = JSON.parse(localStorage.getItem("userDatabase"));
+            if(userStorage === null)
+            {
+                userStorage = [];
+                localStorage = localStorage.setItem("userDatabase","[]");
+            }
+
+        [[password, validation.passwordStrengthValidation, [password.value, password,states[1],states[2],states[3]]],[confirmPassword, () => {if(password.value === confirmPassword.value)confirmPassword.classList.add()}],[username, usernameTimeout],[mail, validation.emailValidation, [mail.value, mail,states[1]] ] ].forEach(element => 
+        {
+            username.addEventListener("change", () => {
+            validateElement(validation,element[0],element[1],element[2]);
+
+        });
+        });
+            let result = userStorage.find(element => element.username == username.value);
+
+            if(result !== null  && result !== undefined )
+            {
+
+                return;
+            }
+            let usr = new User(username.value, mail.value, btoa(password.value));
+            userStorage.push(usr);
+                localStorage.setItem("userDatabase",JSON.stringify(userStorage));
+            navigateTo(u("/login"));
+        });
+
+</script>

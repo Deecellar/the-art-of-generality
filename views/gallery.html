@@ -99,11 +99,11 @@
             } );
             div.appendChild(img);
             div.appendChild(p);
-            if (!isAuthenticated()) {
+            if (isAuthenticated()) {
               let editButton = document.createElement("button");
               editButton.textContent = "Edit Image";
               editButton.className =
-                " gallery-edit-button ";
+                " gallery-edit-button";
               div.appendChild(editButton);
             }
             gal.appendChild(div);

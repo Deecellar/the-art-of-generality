@@ -10,7 +10,7 @@
                         <input   class="auth-input auth-state"  type="text" name="username" id="username">
                         <label class="auth-label" for="password">Contraseña</label>
                         <input  class="auth-input auth-state"type="password" name="password" id="password">
-                        <button class="auth-submit">Ingresar</button>
+                        <button class="auth-submit" id="submit" >Ingresar</button>
                         <a class="auth-other-links" href="/register">¿No esta registrado? Registrese Aqui</a>
                         <a class="auth-other-links" href="/reset-password">¿Se ha olvidado su contraseña?</a>
                     </div>
@@ -24,21 +24,35 @@
         let states = ["auth-state","auth-fail","auth-ok","auth-medium"]
         let username = document.getElementById("username");
         let password = document.getElementById("password");
+        let submit = document.getElementById("submit");
         let usernameTimeout, passwordTimeout;
+        
         username.addEventListener("change", () => {
-            console.log("changed");
-            window.clearInterval(usernameTimeout);
-            usernameTimeout = window.setInterval(() => {
-            states.forEach(x => username.classList.remove(x));
-                if(validation.validateText(username.textContent,"[^-\\s]", () => username.classList.add("auth-fail")))
-                {
-                    console.log("Texto es blanco");
-                }
-                else {
-                    username.classList.add("auth-state");
-                }
-                window.clearInterval(usernameTimeout);
-            }, 300)
+            intervalChange(states,validation, usernameTimeout, username);
+
         });
+        password.addEventListener("change", () => {
+            intervalChange(states,validation, passwordTimeout, password);
+        });
+        submit.addEventListener("click",(e) => {
+            
+            let userStorage = JSON.parse(localStorage.getItem("userDatabase"));
+            [username,password].forEach(element => {
+                validateElement(validation, element);
+            });
+            let result = userStorage.find(element => element.username == username.value);
+            if(result === null || result === undefined)
+            {
+                result = userStorage.find(element => element.email == username.value);
+            }
+            if(result !== null && result.password === btoa(password.value))
+            {
+                localStorage.setItem("IsAuth","auth");
+                localStorage.setItem("CurrentUser",JSON.stringify(result));
+                navigateTo(u("/"))
+            }
+            location.reload();
+        });
+
 
     </script>

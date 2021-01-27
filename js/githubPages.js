@@ -4,7 +4,7 @@ export function u(url) {
     let str = url;
     if(isGithub)
     {
-        str = `/${PROJECT_TITLE}${url}`;
+        str = `/${PROJECT_TITLE}${url}`;  
     }
   return str;
 }

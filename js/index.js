@@ -6,8 +6,13 @@ import login from "./views/login.js";
 import profile from "./views/profile.js";
 import register from "./views/register.js";
 import resetPassword from "./views/reset.password.js";
-import isAuthenticated from "./authBehaviour.js";
+import {
+  isAuthenticated,
+  intervalChange,
+  validateElement,
+} from "./authBehaviour.js";
 import Validation from "./validation.js";
+import User from "./user.js";
 removeAuthBehind();
 
 const pathToRegex = (path) =>
@@ -39,7 +44,7 @@ const router = async () => {
     { path: u("/profile"), view: profile },
     { path: u("/reset-password"), view: resetPassword },
   ];
-  console.log(location.pathname.split("/"))
+  console.log(location.pathname.split("/"));
   // Test each route for potential match
   const potentialMatches = routes.map((route) => {
     return {
@@ -64,51 +69,57 @@ const router = async () => {
   var arr = document.querySelector("#app").getElementsByTagName("script");
   for (var n = 0; n < arr.length; n++) eval(arr[n].textContent);
   removeAuthBehind();
-
 };
 
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
-    if (e.target.matches("a") || e.target.matches(".nav-link") || e.target.matches("img")) {
+    if (e.target.matches("a") || e.target.matches(".nav-link")) {
       e.preventDefault();
       navigateTo(e.target.href);
-      console.log(e.target.href)
+      console.log(e.target.href);
     }
   });
 
   router();
 });
 
-function removeAuthBehind()
-{
-  let selector = ["auth-on","auth-off"];
+function removeAuthBehind() {
+  let selector = ["auth-on", "auth-off"];
   let index = 0;
-  if(isAuthenticated()){
+  if (isAuthenticated()) {
     index = 1;
   }
 
-  for(let el of document.getElementsByClassName(selector[index])){
+  for (let el of document.getElementsByClassName(selector[index])) {
     el.remove();
-
   }
-  for(let el of document.getElementsByClassName(selector[selector.length - index - 1])){
-    el.classList.replace(selector[selector.length - index - 1], selector[selector.length - index - 1]+"-visible")
-
+  for (let el of document.getElementsByClassName(
+    selector[selector.length - index - 1]
+  )) {
+    el.classList.replace(
+      selector[selector.length - index - 1],
+      selector[selector.length - index - 1] + "-visible"
+    );
   }
-
 }
 
-
-
-
 // Nav Behaviour
-let hamburger = document.getElementById('hamburgerbtn');
+let hamburger = document.getElementById("hamburgerbtn");
 
-let mobileMenu = document.getElementById('mobileMenu');
+let mobileMenu = document.getElementById("mobileMenu");
 
-hamburger.addEventListener('click', function(){
-    mobileMenu.classList.toggle("active");
-    console.log("owo");
+hamburger.addEventListener("click", function () {
+  mobileMenu.classList.toggle("active");
+  console.log("owo");
 });
+
+if (isAuthenticated()) {
+  document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("IsAuth");
+    localStorage.removeItem("CurrentUser");
+    navigateTo(u("/"));
+    location.reload();
+  });
+}
