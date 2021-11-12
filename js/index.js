@@ -8,6 +8,7 @@ import register from "./views/register.js";
 import resetPassword from "./views/reset.password.js";
 import isAuthenticated from "./authBehaviour.js";
 import Validation from "./validation.js";
+var isFromfunc = false;
 removeAuthBehind();
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -24,7 +25,6 @@ const getParams = (match) => {
     })
   );
 };
-var isFromfunc = false;
 const navigateTo = (url) => {
   history.pushState(null, null, url);
   isFromFunc = true;
