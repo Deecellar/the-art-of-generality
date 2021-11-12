@@ -55,6 +55,16 @@
       "Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas"
     );
   }
+    function u(url) {
+    let str = url;
+    let tmp = "";
+    if(isGithub === true) // Redundant
+    {
+        tmp += PROJECT_TITLE;
+        tmp += url;
+    }
+  return tmp;;
+}
   window.addEventListener("scroll", (event) => {
     if (window.scrollY > 70) {
       document.getElementById("sticky-control").classList.add("md:opacity-40");
