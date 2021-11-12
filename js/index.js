@@ -9,7 +9,6 @@ import resetPassword from "./views/reset.password.js";
 import isAuthenticated from "./authBehaviour.js";
 import Validation from "./validation.js";
 removeAuthBehind();
-navigateTo(location.hostname);
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
@@ -66,10 +65,12 @@ const router = async () => {
   removeAuthBehind();
 
 };
+navigateTo(location.hostname);
 
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
+
   document.body.addEventListener("click", (e) => {
     if (e.target.matches("a") || e.target.matches(".nav-link") || e.target.matches("img")) {
       e.preventDefault();
