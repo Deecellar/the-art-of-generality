@@ -50,6 +50,7 @@
   ></div>
 
 <script>
+    import {u} from '../js/githubPages.js';
   if (!window.indexedDB) {
     window.alert(
       "Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas"
@@ -180,7 +181,7 @@
   }
 
   if (localStorage.getItem("loadedGallery") !== "yes") {
-    let getFiles = fetch("./assets/gallery/files.json")
+    let getFiles = fetch(u("/assets/gallery/files.json"))
       .then((x) => x.json())
       .then(function (x) {
         Object.keys(x).forEach((element) => {
