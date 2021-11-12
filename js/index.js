@@ -9,7 +9,7 @@ import resetPassword from "./views/reset.password.js";
 import isAuthenticated from "./authBehaviour.js";
 import Validation from "./validation.js";
 removeAuthBehind();
-
+document.location.href = location.hostname;
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
