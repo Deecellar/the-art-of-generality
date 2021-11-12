@@ -24,11 +24,16 @@ const getParams = (match) => {
     })
   );
 };
+var isFromfunc = false;
 const navigateTo = (url) => {
   history.pushState(null, null, url);
+  isFromFunc = true;
   router();
 };
 const router = async () => {
+  if(!isFromfunc){
+      history.pushState(null, null, "/");
+  }
   const routes = [
     { path: u("/"), view: home },
     { path: u("/gallery"), view: gallery },
@@ -65,7 +70,7 @@ const router = async () => {
   removeAuthBehind();
 
 };
-navigateTo("/");
+
 
 window.addEventListener("popstate", router);
 
