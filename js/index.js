@@ -54,7 +54,7 @@ const router = async () => {
   if (!match) {
     match = {
       route: routes[0],
-      result: [location.pathname],
+      result: ["/"],
     };
   }
 
