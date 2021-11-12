@@ -192,25 +192,6 @@
     return false;
   }
 
-  if (localStorage.getItem("loadedGallery") !== "yes") {
-    let getFiles = fetch(u("/assets/gallery/files.json"))
-      .then((x) => x.json())
-      .then(function (x) {
-        Object.keys(x).forEach((element) => {
-          let src = `./assets/gallery/${element}.jpg`;
-          fetch(src)
-            .then((y) => y.blob())
-            .then((y) => AddImage(y, x[element].user_name))
-            .then(() => localStorage.setItem("loadedGallery", "yes"))
-            .catch((e) => {
-              console.error(e);
-              localStorage.removeItem("loadedGallery");
-            });
-        });
-      })
-      .catch((w) => console.log(w));
-  }
-
   document
     .getElementById("submit")
     .addEventListener("click", () =>
