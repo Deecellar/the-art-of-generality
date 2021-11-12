@@ -1,4 +1,4 @@
-import { u } from '../githubPages.js';
+import { u } from './githubPages.js';
 
 export default class {
     constructor(params) {
