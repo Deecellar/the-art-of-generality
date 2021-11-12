@@ -5,7 +5,7 @@ export default class extends AbstractView {
     constructor(params) {
         super(params);
         this.setTitle('Recuperar la contraseña');
-        this.addStyles("./css/auth.css");
+        this.addStyles("/css/auth.css");
         
       }
 

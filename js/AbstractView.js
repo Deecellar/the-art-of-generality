@@ -1,3 +1,5 @@
+import { u } from '../githubPages.js';
+
 export default class {
     constructor(params) {
         this.params = params;
@@ -14,7 +16,7 @@ export default class {
 
         link.type = "text/css";
         link.rel = "stylesheet";
-        link.href = filename;
+        link.href = u(filename);
 
         this.styles.push(link);
         head.appendChild(link);

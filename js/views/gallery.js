@@ -5,7 +5,7 @@ export default class extends AbstractView {
     constructor(params) {
         super(params);
         this.setTitle('Galeria');
-        this.addStyles("./css/gallery.css");
+        this.addStyles("/css/gallery.css");
         
       }
 
