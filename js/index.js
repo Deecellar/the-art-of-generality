@@ -35,13 +35,13 @@ const router = async () => {
       history.pushState(null, null, "/");
   }
   const routes = [
-    { path: u("/"), view: home },
-    { path: u("/gallery"), view: gallery },
-    { path: u("/about"), view: about },
-    { path: u("/register"), view: register },
-    { path: u("/login"), view: login },
-    { path: u("/profile"), view: profile },
-    { path: u("/reset-password"), view: resetPassword },
+    { path: ("/"), view: home },
+    { path: ("/gallery"), view: gallery },
+    { path: ("/about"), view: about },
+    { path: ("/register"), view: register },
+    { path: ("/login"), view: login },
+    { path: ("/profile"), view: profile },
+    { path: ("/reset-password"), view: resetPassword },
   ];
   console.log(location.pathname.split("/"))
   // Test each route for potential match
