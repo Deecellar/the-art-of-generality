@@ -30,7 +30,7 @@ const navigateTo = (url) => {
 };
 const router = async () => {
   const routes = [
-    { path: u("/about"), view: home },
+    { path: u("/"), view: home },
     { path: u("/gallery"), view: gallery },
     { path: u("/about"), view: about },
     { path: u("/register"), view: register },
@@ -65,7 +65,7 @@ const router = async () => {
   removeAuthBehind();
 
 };
-navigateTo(location.hostname);
+navigateTo("/");
 
 window.addEventListener("popstate", router);
 
