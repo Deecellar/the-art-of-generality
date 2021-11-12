@@ -27,7 +27,7 @@ const getParams = (match) => {
 };
 const navigateTo = (url) => {
   history.pushState(null, null, url);
-  isFromFunc = true;
+  isFromfunc = true;
   router();
 };
 const router = async () => {
